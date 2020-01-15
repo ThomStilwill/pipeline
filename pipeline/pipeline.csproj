@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InnerPipelineBuilder.cs" />
-    <Compile Include="CastingPipelineBuilder.cs" />
     <Compile Include="IPipeline.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,7 +15,7 @@ namespace pipeline
 
         public void AddStep<TStepIn, TStepOut>(Func<TStepIn, TStepOut> stepFunc)
         {
-            _pipelineSteps.Add(objInput => stepFunc.Invoke((TStepIn)(object)objInput));
+            _pipelineSteps.Add(objInput => stepFunc.Invoke((TStepIn) (object) objInput));
         }
 
         public void Execute(object input)
@@ -54,6 +54,7 @@ namespace pipeline
                 });
                 bufferIndex++;
             }
+
             return this;
         }
     }

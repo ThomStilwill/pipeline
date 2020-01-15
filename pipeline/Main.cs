@@ -5,20 +5,6 @@ namespace pipeline
 {
     public class Main
     {
-        public void StartCastingPipeline()
-        {
-            var builder = new CastingPipelineBuilder();
-
-            builder.AddStep(input => FindMostCommon(input as string));
-            builder.AddStep(input => (input as string).Length);
-            builder.AddStep(input => ((int) input) % 2 == 1);
-
-            var pipeline = builder.GetPipeline();
-
-            pipeline.Finished += res => Debug.WriteLine(res);
-            pipeline.Execute("The pipeline pattern is the best pattern");
-        }
-
         public void StartInnerPipeline()
         {
             var builder = new InnerPipelineBuilder();
@@ -29,6 +15,7 @@ namespace pipeline
 
             pipeline.Finished += res => Debug.WriteLine(res);
             pipeline.Execute("The pipeline pattern is the best pattern");
+
         }
 
         private static string FindMostCommon(string input)
@@ -50,6 +37,5 @@ namespace pipeline
             var res = number % 2 == 1;
             return res;
         }
-
     }
 }

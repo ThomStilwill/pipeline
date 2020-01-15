@@ -6,12 +6,11 @@ namespace Tests
     [TestFixture]
     public class PipelineTests
     {
-        [Test]
-        public void TestCastingPipeline()
-        {
-            var main = new Main();
-            main.StartCastingPipeline();
-        }
+
+
+        //https://michaelscodingspot.com/pipeline-pattern-implementations-csharp/
+
+
 
         [Test]
         public void TestInnerPipeline()
