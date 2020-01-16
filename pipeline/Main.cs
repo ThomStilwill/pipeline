@@ -7,15 +7,15 @@ namespace pipeline
     {
         public void StartInnerPipeline()
         {
-            var builder = new InnerPipelineBuilder();
-            builder.AddStep<string, string>(input => FindMostCommon(input));
-            builder.AddStep<string, int>(input => CountChars(input));
-            builder.AddStep<int, bool>(input => IsOdd(input));
-            var pipeline = builder.GetPipeline();
+            var pipeline = Pipeline<string,bool>
+                .Create()
+                .AddStep<string, string>(input => FindMostCommon(input))
+                .AddStep<string, int>(input => CountChars(input))
+                .AddStep<int, bool>(input => IsOdd(input));
+            
+            var result = pipeline.Execute("The pipeline pattern is the best pattern");
 
-            pipeline.Finished += res => Debug.WriteLine(res);
-            pipeline.Execute("The pipeline pattern is the best pattern");
-
+            Debug.WriteLine(result);
         }
 
         private static string FindMostCommon(string input)

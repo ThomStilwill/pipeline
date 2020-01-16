@@ -6,12 +6,6 @@ namespace Tests
     [TestFixture]
     public class PipelineTests
     {
-
-
-        //https://michaelscodingspot.com/pipeline-pattern-implementations-csharp/
-
-
-
         [Test]
         public void TestInnerPipeline()
         {

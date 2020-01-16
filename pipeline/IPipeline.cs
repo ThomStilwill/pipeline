@@ -2,9 +2,9 @@
 
 namespace pipeline
 {
-    public interface IPipeline
+    public interface IPipeline<TInput,TOutput>
     {
-        void Execute(object input);
-        event Action<object> Finished;
+        IPipeline<TInput, TOutput> AddStep<TStepIn, TStepOut>(Func<TStepIn, TStepOut> stepFunc);
+        TOutput Execute(TInput input);
     }
 }

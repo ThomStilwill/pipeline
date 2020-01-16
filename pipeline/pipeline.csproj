@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InnerPipelineBuilder.cs" />
     <Compile Include="IPipeline.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Pipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Step.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
