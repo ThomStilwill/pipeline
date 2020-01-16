@@ -11,7 +11,9 @@ namespace pipeline
 
         public IPipeline<TInput, TOutput> AddStep<TStepIn, TStepOut>(Func<TStepIn, TStepOut> stepFunc)
         {
-            _pipelineSteps.Add(input => stepFunc.Invoke((TStepIn)input));
+            var step = new Step<TStepIn, TStepOut>(stepFunc);
+
+            _pipelineSteps.Add(input => step.StepFunction.Invoke((TStepIn)input));
             return this;
         }
 
@@ -27,6 +29,5 @@ namespace pipeline
 
             return (TOutput) stepOutput;
         }
-      
     }
 }
