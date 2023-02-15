@@ -1,10 +1,27 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using pipeline.chain;
 
 namespace pipeline
 {
     public class Main
     {
+
+
+        public IEnumerable<object> CsvValidationChain()
+        {
+            var csvData = "James,Kirk,jim.kirk@gmail.com\r\nLeonard,McCoy,leonard.mccoy@gmail.com";
+
+            var chain = Chain<string,IEnumerable<object>>
+                .Create()       
+                .Add(new CsvLineStep())
+                .Add(new ColumnStep());
+
+            return chain.Execute(csvData);
+        }
+
+        
         public void StartInnerPipeline()
         {
             var pipeline = Pipeline<string,bool>
