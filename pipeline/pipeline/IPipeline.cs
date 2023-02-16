@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pipeline
+namespace pipeline.pipeline
 {
     public interface IPipeline<TInput,TOutput>
     {

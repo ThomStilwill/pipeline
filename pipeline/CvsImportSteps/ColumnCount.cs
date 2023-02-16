@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace pipeline.chain
+namespace pipeline.CvsImportSteps
 {
-    internal class ColumnStep: IChainStep<IEnumerable<string>,IEnumerable<IEnumerable<string>>>
+    internal class ColumnCount
     {
         public IEnumerable<IEnumerable<string>> Execute(IEnumerable<string> dataIn)
         {

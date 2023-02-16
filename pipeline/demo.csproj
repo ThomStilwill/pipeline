@@ -44,11 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="chain\Chain.cs" />
-    <Compile Include="chain\ColumnStep.cs" />
-    <Compile Include="chain\CsvLineStep.cs" />
-    <Compile Include="chain\IChain.cs" />
-    <Compile Include="chain\IChainStep.cs" />
+    <Compile Include="CvsImportSteps\ColumnCount.cs" />
+    <Compile Include="CvsImportSteps\LineConverter.cs" />
+    <Compile Include="CvsImportSteps\StringToLines.cs" />
+    <Compile Include="PubSub\ISubject.cs" />
+    <Compile Include="PubSub\IObserver.cs" />
+    <Compile Include="PubSub\Observer.cs" />
+    <Compile Include="PubSub\Subject.cs" />
     <Compile Include="pipeline\IPipeline.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="pipeline\Pipeline.cs" />

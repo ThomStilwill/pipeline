@@ -1,25 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using pipeline.chain;
+using pipeline.CvsImportSteps;
+using pipeline.pipeline;
+using pipeline.PubSub;
 
 namespace pipeline
 {
     public class Main
     {
-
-
         public IEnumerable<object> CsvValidationChain()
         {
+            var importSubject = new Subject("import operation");
+            var observer = new Observer("import", importSubject);
+
+            var stringToLines = new StringToLines(importSubject);
+            var lineConverter = new LineConverter(importSubject);
+
             var csvData = "James,Kirk,jim.kirk@gmail.com\r\nLeonard,McCoy,leonard.mccoy@gmail.com";
 
-            var chain = Chain<string,IEnumerable<object>>
+            importSubject.NotifyObservers("create pipeline");
+            var chain = Pipeline<string,IEnumerable<object>>
                 .Create()       
-                .Add(new CsvLineStep())
-                .Add(new ColumnStep());
+                .AddStep<string, IEnumerable<string>>(x => stringToLines.Execute(x))
+                .AddStep<IEnumerable<string>, IEnumerable<IEnumerable<string>>>(x => lineConverter.Execute(x));
 
-            return chain.Execute(csvData);
+            importSubject.NotifyObservers("execute pipeline");
+            var result = chain.Execute(csvData);
+            importSubject.NotifyObservers("complete pipeline");
+            return result;
         }
+
+
+
+
 
         
         public void StartInnerPipeline()

@@ -4,7 +4,7 @@ using pipeline;
 namespace Tests
 {
     [TestFixture]
-    public class PipelineTests
+    public class DemoTests
     {
         [Test]
         public void TestChain()
@@ -13,7 +13,6 @@ namespace Tests
             var result = main.CsvValidationChain();
             Assert.IsNotNull(result);
         }
-
 
         [Test]
         public void TestInnerPipeline()
