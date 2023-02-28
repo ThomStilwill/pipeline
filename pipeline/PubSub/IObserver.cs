@@ -1,7 +1,8 @@
 ﻿namespace pipeline.PubSub
 {
-    public interface IObserver
+    public interface IObserver<in T>
     {
-        void Update(string message);
+        string Name { get; }
+        void Update(T message);
     }
 }

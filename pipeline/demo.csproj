@@ -47,6 +47,11 @@
     <Compile Include="CvsImportSteps\ColumnCount.cs" />
     <Compile Include="CvsImportSteps\LineConverter.cs" />
     <Compile Include="CvsImportSteps\StringToLines.cs" />
+    <Compile Include="domain\Country.cs" />
+    <Compile Include="domain\Enumeration.cs" />
+    <Compile Include="domain\ValueObjectBase.cs" />
+    <Compile Include="helpers\StringExtensions.cs" />
+    <Compile Include="pipeline\Message.cs" />
     <Compile Include="PubSub\ISubject.cs" />
     <Compile Include="PubSub\IObserver.cs" />
     <Compile Include="PubSub\Observer.cs" />

@@ -1,9 +1,9 @@
 ﻿namespace pipeline.PubSub
 {
-    public interface ISubject
+    public interface ISubject<T>
     {
-        void RegisterObserver(IObserver observer);
-        void RemoveObserver(IObserver observer);
-        void NotifyObservers(string message);
+        void RegisterObserver(IObserver<T> observer);
+        void RemoveObserver(IObserver<T> observer);
+        void NotifyObservers(T message);
     }
 }

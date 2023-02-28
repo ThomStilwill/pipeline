@@ -2,18 +2,20 @@
 
 namespace pipeline.PubSub
 {
-    public class Observer : IObserver
+    public class Observer<T> : IObserver<T>
     {
+        private readonly Action<T> _action;
         public string Name { get; set; }
-        public Observer(string name, ISubject subject)
+        public Observer(string name, ISubject<T> subject, Action<T> action)
         {
+            _action = action;
             Name = name;
             subject.RegisterObserver(this);
         }
-        
-        public void Update(string message)
+
+        public void Update(T message)
         {
-            Console.WriteLine(message);
+            _action.Invoke(message);
         }
     }
 }

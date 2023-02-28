@@ -3,34 +3,37 @@ using System.Collections.Generic;
 
 namespace pipeline.PubSub
 {
-    public class Subject : ISubject
+    public class Subject<T> : ISubject<T>
     {
-        private List<IObserver> observers = new List<IObserver>();
+        private List<IObserver<T>> observers = new List<IObserver<T>>();
         private string Name { get; set; }
         public Subject(string name)
         {
             Name = name;
-
         }
 
-        public void SendMessage(string message)
+        public void RegisterObserver(IObserver<T> observer)
         {
-            NotifyObservers(message);
-        }
-        public void RegisterObserver(IObserver observer)
-        {
-            Console.WriteLine("Observer Added : " + ((Observer)observer).Name );
+            Console.WriteLine("Observer Registered: " + observer.Name );
             observers.Add(observer);
         }
-        public void AddObservers(IObserver observer)
+
+        public void AddObservers(IObserver<T> observer)
         {
             observers.Add(observer);
         }
-        public void RemoveObserver(IObserver observer)
+
+        public void RemoveObserver(IObserver<T> observer)
         {
             observers.Remove(observer);
         }
-        public void NotifyObservers(string message)
+
+        public void SendMessage(T message)
+        {
+            NotifyObservers(message);
+        }
+
+        public void NotifyObservers(T message)
         {
             foreach (var observer in observers)
             {

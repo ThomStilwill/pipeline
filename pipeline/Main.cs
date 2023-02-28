@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using pipeline.CvsImportSteps;
@@ -11,30 +12,35 @@ namespace pipeline
     {
         public IEnumerable<object> CsvValidationChain()
         {
-            var importSubject = new Subject("import operation");
-            var observer = new Observer("import", importSubject);
+            var importSubject = new Subject<Message>("import operation");
+            var observer = new Observer<Message>("import", importSubject, ObserverAction);
 
             var stringToLines = new StringToLines(importSubject);
             var lineConverter = new LineConverter(importSubject);
 
-            var csvData = "James,Kirk,jim.kirk@gmail.com\r\nLeonard,McCoy,leonard.mccoy@gmail.com";
+            var csvData = "James,Kirk,jim.kirk@gmail.com\n,X,\nLeonard,McCoy,leonard.mccoy@gmail.com\n\n";
 
-            importSubject.NotifyObservers("create pipeline");
+            importSubject.NotifyObservers(new Message("create pipeline"));
+
             var chain = Pipeline<string,IEnumerable<object>>
                 .Create()       
                 .AddStep<string, IEnumerable<string>>(x => stringToLines.Execute(x))
                 .AddStep<IEnumerable<string>, IEnumerable<IEnumerable<string>>>(x => lineConverter.Execute(x));
 
-            importSubject.NotifyObservers("execute pipeline");
+            importSubject.NotifyObservers(new Message("execute pipeline"));
+            
             var result = chain.Execute(csvData);
-            importSubject.NotifyObservers("complete pipeline");
+
+            importSubject.NotifyObservers(new Message("complete pipeline"));
+
             return result;
         }
 
-
-
-
-
+        void ObserverAction(Message message)
+        {
+            var severity = message.Severity.ToString().PadRight(7, ' ');
+            Console.WriteLine($"{severity} : {message.Description}");
+        }
         
         public void StartInnerPipeline()
         {
