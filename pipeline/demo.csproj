@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>pipeline</RootNamespace>
     <AssemblyName>pipeline</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,11 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPipeline.cs" />
+    <Compile Include="CvsImportSteps\ColumnCount.cs" />
+    <Compile Include="CvsImportSteps\LineConverter.cs" />
+    <Compile Include="CvsImportSteps\StringToLines.cs" />
+    <Compile Include="domain\Country.cs" />
+    <Compile Include="domain\Enumeration.cs" />
+    <Compile Include="domain\ValueObjectBase.cs" />
+    <Compile Include="helpers\StringExtensions.cs" />
+    <Compile Include="pipeline\Message.cs" />
+    <Compile Include="PubSub\ISubject.cs" />
+    <Compile Include="PubSub\IObserver.cs" />
+    <Compile Include="PubSub\Observer.cs" />
+    <Compile Include="PubSub\Subject.cs" />
+    <Compile Include="pipeline\IPipeline.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Pipeline.cs" />
+    <Compile Include="pipeline\Pipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Step.cs" />
+    <Compile Include="pipeline\Step.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

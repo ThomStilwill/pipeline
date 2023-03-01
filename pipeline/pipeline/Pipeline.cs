@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace pipeline
+namespace pipeline.pipeline
 {
     public class Pipeline<TInput, TOutput> : IPipeline<TInput, TOutput>
     {

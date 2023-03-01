@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pipeline
+namespace pipeline.pipeline
 {
     public class Step<TStepIn, TStepOut>
     {
