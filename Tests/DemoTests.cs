@@ -6,13 +6,13 @@ namespace Tests
     [TestFixture]
     public class DemoTests
     {
-        [Test]
-        public void TestChain()
-        {
-            var main = new Main();
-            var result = main.CsvValidationChain();
-            Assert.IsNotNull(result);
-        }
+        //[Test]
+        // public void TestChain()
+        // {
+        //     var main = new Main();
+        //     var result = main.CsvValidationChain();
+        //     Assert.IsNotNull(result);
+        // }
 
         [Test]
         public void TestInnerPipeline()

@@ -5,36 +5,37 @@ using System.Linq;
 using pipeline.CvsImportSteps;
 using pipeline.pipeline;
 using pipeline.PubSub;
+using pipeline.StepClasses;
 
 namespace pipeline
 {
     public class Main
     {
-        public IEnumerable<object> CsvValidationChain()
-        {
-            var importSubject = new Subject<Message>("import operation");
-            var observer = new Observer<Message>("import", importSubject, ObserverAction);
-
-            var stringToLines = new StringToLines(importSubject);
-            var lineConverter = new LineConverter(importSubject);
-
-            var csvData = "James,Kirk,jim.kirk@gmail.com\n,X,\nLeonard,McCoy,leonard.mccoy@gmail.com\n\n";
-
-            importSubject.NotifyObservers(new Message("create pipeline"));
-
-            var chain = Pipeline<string,IEnumerable<object>>
-                .Create()       
-                .AddStep<string, IEnumerable<string>>(x => stringToLines.Execute(x))
-                .AddStep<IEnumerable<string>, IEnumerable<IEnumerable<string>>>(x => lineConverter.Execute(x));
-
-            importSubject.NotifyObservers(new Message("execute pipeline"));
-            
-            var result = chain.Execute(csvData);
-
-            importSubject.NotifyObservers(new Message("complete pipeline"));
-
-            return result;
-        }
+        // public IEnumerable<object> CsvValidationChain()
+        // {
+        //     var importSubject = new Subject<Message>("import operation");
+        //     var observer = new Observer<Message>("import", importSubject, ObserverAction);
+        //
+        //     var stringToLines = new StringToLines(importSubject);
+        //     var lineConverter = new LineConverter(importSubject);
+        //
+        //     var csvData = "James,Kirk,jim.kirk@gmail.com\n,X,\nLeonard,McCoy,leonard.mccoy@gmail.com\n\n";
+        //
+        //     importSubject.NotifyObservers(new Message("create pipeline"));
+        //
+        //     var chain = Pipeline<string,IEnumerable<object>>
+        //         .Create()       
+        //         .AddStep<string, IEnumerable<string>>(x => stringToLines.Execute(x))
+        //         .AddStep<IEnumerable<string>, IEnumerable<IEnumerable<string>>>(x => lineConverter.Execute(x));
+        //
+        //     importSubject.NotifyObservers(new Message("execute pipeline"));
+        //     
+        //     var result = chain.Execute(csvData);
+        //
+        //     importSubject.NotifyObservers(new Message("complete pipeline"));
+        //
+        //     return result;
+        // }
 
         void ObserverAction(Message message)
         {
@@ -47,12 +48,13 @@ namespace pipeline
             var pipeline = Pipeline<string,bool>
                 .Create()
                 .AddStep<string, string>(input => FindMostCommon(input))
+                .AddStep<string,string>(input => new ActionOneHandler().Execute(input))
                 .AddStep<string, int>(input => CountChars(input))
                 .AddStep<int, bool>(input => IsOdd(input));
             
             var result = pipeline.Execute("The pipeline pattern is the best pattern");
 
-            Debug.WriteLine(result);
+            Console.WriteLine(result);
         }
 
         private static string FindMostCommon(string input)

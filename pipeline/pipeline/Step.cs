@@ -2,6 +2,7 @@
 
 namespace pipeline.pipeline
 {
+
     public class Step<TStepIn, TStepOut>
     {
         public Step(Func<TStepIn, TStepOut> stepFunction)
@@ -11,4 +12,5 @@ namespace pipeline.pipeline
 
         public Func<TStepIn, TStepOut> StepFunction { set; get; }
     }
+    
 }
